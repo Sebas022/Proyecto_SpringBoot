@@ -1,0 +1,73 @@
+create table if not exists roles(
+	role_id serial primary key,
+	role_name varchar(255)
+);
+
+create table if not exists users(
+
+	user_id serial primary key,
+	email varchar(255) unique not null,
+	user_password varchar(255) not null,
+	created_at timestamp(0),
+	updated_at timestamp(0),
+	role_id_fk integer,
+
+	foreign key(role_id_fk) references roles(role_id)
+);
+
+create table if not exists categories(
+
+	categories_id serial primary key,
+	description varchar(255) not null
+);
+
+create table if not exists ratings(
+	rating_id serial primary key,
+	created_at timestamp(0),
+	rating integer check (rating >= 1 AND rating <=5),
+	user_id_fk integer,
+	movie_id_fk integer,
+
+	foreign key(user_id_fk) references users(user_id),
+	foreign key(movie_id_fk) references movies(movie_id)
+);
+
+create table if not exists movies(
+	movie_id serial primary key,
+	title varchar(255) not null,
+	description varchar(255) not null,
+	release_year date not null,
+	created_at timestamp(0),
+	created_by integer,
+	updated_at timestamp(0),
+	updated_by integer,
+
+	user_id_fk integer,
+	categories_id_fk integer,
+
+	foreign key(user_id_fk) references users(user_id),
+	foreign key(categories_id_fk) references categories(categories_id),
+	foreign key(created_by) references users(user_id)
+);
+
+alter table movies add constraint created_by_fk foreign key(created_by) references users(user_id)
+alter table movies add constraint updated_by_fk foreign key(updated_by) references users(user_id)
+
+select * from movies;
+
+/*ROLES*/
+insert into roles(role_name) values('ADMIN'),('USER');
+select * from roles;
+
+/*CATEGORIES*/
+insert into categories(description)
+values('Action'),('Comedy'),('Drama'),('Sci-fi');
+insert into categories(categories_id,category_name) values (6,'Thriller')
+insert into categories(categories_id,category_name) values (7,'Adventure')
+
+select * from categories;
+
+/*USERS*/
+INSERT INTO users (email, user_password, role_id_fk, created_at, updated_at)
+VALUES ('gska2010@gmail.com', '$2a$10$rHzgkDOfnhEceBXpKo8sVeV9.5jJPQlFJ0KL.VKrZNDTGhsf5bYxK', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+select * from users;

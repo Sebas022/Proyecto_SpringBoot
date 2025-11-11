@@ -17,8 +17,6 @@ Este proyecto fue desarrollado como parte de un examen técnico, y extendido par
 - Autenticación sin estado con JWT
 - API RESTful documentada con Swagger
 - Arquitectura en capas: Controller, Service, Repository
-- Validaciones con anotaciones (`@Valid`, `@NotNull`, etc.)
-- Manejo de excepciones global (`@ControllerAdvice`)
 - Base de datos embebida con H2 para pruebas rápidas
 
 ## 🧪 Cómo ejecutar
@@ -29,3 +27,13 @@ Este proyecto fue desarrollado como parte de un examen técnico, y extendido par
 
 ## 🔎 Accede a la documentación con Swagger
 http://localhost:8080/swagger-ui.html
+
+## 🗂️ Script de base de datos
+
+El proyecto incluye un archivo `bdExamen.sql` en `src/main/resources` con la definición de tablas y relaciones. Puedes usarlo para crear la base en PostgreSQL u otra base relacional.
+
+Para ejecutarlo manualmente:
+
+1. Abre tu gestor de base de datos (ej. pgAdmin, DBeaver)
+2. Crea una base de datos nueva
+3. Ejecuta el script `bdExamen.sql` para generar las tablas
